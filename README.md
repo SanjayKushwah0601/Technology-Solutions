@@ -9,6 +9,7 @@ Technology solutions for problems in coding, system design, and software archite
 | [Search 10B Records in Milliseconds](./search-10b-records/) | [`search-10b-records/`](./search-10b-records/) |
 | [Grafana k6](./grafana-k6/) | [`grafana-k6/`](./grafana-k6/) |
 | [Machine Learning](./machine-learning/) | [`machine-learning/`](./machine-learning/) |
+| [Demo Projects](./demo-projects/) | [`demo-projects/`](./demo-projects/) |
 
 ### Machine Learning
 

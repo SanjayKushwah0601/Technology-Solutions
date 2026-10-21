@@ -25,7 +25,7 @@ Read and write scripts before modeling libraries.
 | Subtopic | Resource |
 | --- | --- |
 | Python basics (syntax, functions, classes) | |
-| NumPy (arrays, broadcasting, linear ops) | |
+| NumPy (arrays, broadcasting, linear ops) | [NumPy docs](https://numpy.org/doc/) |
 | pandas (DataFrames, filtering, groupby) | |
 | matplotlib / seaborn (plots and EDA visuals) | |
 

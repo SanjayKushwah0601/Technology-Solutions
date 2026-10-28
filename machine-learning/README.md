@@ -38,7 +38,7 @@ Linear algebra for data and weights. Calculus for how models learn. Probability 
 | Linear algebra (vectors, matrices, eigenvalues) | |
 | Calculus (derivatives, gradients, chain rule) | |
 | Probability (distributions, Bayes, expectation) | |
-| Statistics (sampling, hypothesis testing, bias/variance) | [Video 1](https://youtu.be/LZzq1zSL1bs) · [Video 2](https://youtu.be/S7LvZZNq4ys) |
+| [Statistics](./statistics/) (sampling, hypothesis testing, bias/variance) | [`statistics/`](./statistics/) |
 
 ### 3. Data
 

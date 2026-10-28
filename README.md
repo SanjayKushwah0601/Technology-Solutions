@@ -10,6 +10,14 @@ Technology solutions for problems in coding, system design, and software archite
 | [Grafana k6](./grafana-k6/) | [`grafana-k6/`](./grafana-k6/) |
 | [Machine Learning](./machine-learning/) | [`machine-learning/`](./machine-learning/) |
 
+### Machine Learning
+
+Notes and solutions related to machine learning concepts, models, and practical applications.
+
+| Topic | Folder |
+| --- | --- |
+| [Statistics](./machine-learning/statistics/) | [`statistics/`](./machine-learning/statistics/) |
+
 ### Search 10B Records in Milliseconds
 
 Membership filters that accelerate existence checks before hitting a full search index.

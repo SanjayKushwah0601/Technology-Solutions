@@ -16,10 +16,15 @@ Sampling, hypothesis testing, bias/variance, and other foundations used across m
 | Branches (descriptive / inferential) | See [Theory](./theory.md#branches-of-statistics) |
 | Types of data | See [Theory](./theory.md#types-of-data) |
 | Types of variables | See [Theory](./theory.md#types-of-variables) |
+| Population and sample | See [Theory](./theory.md#population-and-sample) |
+| Probability | See [Theory](./theory.md#probability-brief) |
 | Sampling | See [Theory](./theory.md#sampling) |
 | Descriptive statistics (mean, variance, distribution shape) | See [Theory](./theory.md#descriptive-statistics-measures) |
+| Distributions | See [Theory](./theory.md#distributions) |
+| Estimation | See [Theory](./theory.md#estimation) |
 | Hypothesis testing | See [Theory](./theory.md#hypothesis-testing) |
 | Confidence intervals | See [Theory](./theory.md#confidence-intervals) |
+| Correlation and regression | See [Theory](./theory.md#correlation-and-regression) |
 | Bias and variance | See [Theory](./theory.md#bias-and-variance-ml-view) |
 | Correlation vs causation | See [Theory](./theory.md#correlation-vs-causation) |
 

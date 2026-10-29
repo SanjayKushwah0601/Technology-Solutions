@@ -2,21 +2,46 @@
 
 Core statistical ideas used in machine learning. Concepts only — no code.
 
+## Contents
+
+1. [What is statistics?](#what-is-statistics)
+2. [Branches of statistics](#branches-of-statistics)
+3. [Types of data](#types-of-data)
+4. [Types of variables](#types-of-variables)
+5. [Population and sample](#population-and-sample)
+6. [Probability (brief)](#probability-brief)
+7. [Descriptive statistics (measures)](#descriptive-statistics-measures)
+8. [Distributions](#distributions)
+9. [Sampling](#sampling)
+10. [Estimation](#estimation)
+11. [Confidence intervals](#confidence-intervals)
+12. [Hypothesis testing](#hypothesis-testing)
+13. [Correlation and regression](#correlation-and-regression)
+14. [Bias and variance (ML view)](#bias-and-variance-ml-view)
+15. [Correlation vs causation](#correlation-vs-causation)
+16. [Why this matters for ML](#why-this-matters-for-ml)
+
 ## What is statistics?
 
 Statistics is a branch of mathematics for collecting, analyzing, interpreting, presenting, and organizing data so you can make decisions or predictions from it.
 
-In practice it answers questions like: What patterns exist here? How confident is this estimate? Did a change really help, or is the difference just noise?
+In practice it answers questions like:
+
+- What patterns exist in this dataset?
+- How confident is this estimate?
+- Did a change really help, or is the difference just noise?
 
 ### Key concepts
 
-- Descriptive statistics — summarize what you already have
-- Inferential statistics — generalize from a sample to a population
-- Probability — formal language for uncertainty and chance
-- Population vs sample — the full set vs what you observed
-- Hypothesis testing — decide whether data contradict a default claim
-- Correlation and regression — measure and model relationships
-- Variance and standard deviation — quantify spread
+| Concept | Role |
+| --- | --- |
+| Descriptive statistics | Summarize what you already have |
+| Inferential statistics | Generalize from a sample to a population |
+| Probability | Formal language for uncertainty and chance |
+| Population vs sample | The full set vs what you observed |
+| Hypothesis testing | Decide whether data contradict a default claim |
+| Correlation and regression | Measure and model relationships |
+| Variance and standard deviation | Quantify spread |
 
 ## Branches of statistics
 
@@ -27,7 +52,7 @@ Statistics is usually split into two major branches. Most ML workflows use both:
 Descriptive statistics summarize and describe the data you already have, **without** generalizing beyond that sample.
 
 - **Question it answers:** What does the data look like?
-- **Typical steps:** center (mean/median), spread (range/variance/SD), shape (skew), and visuals (histogram, box plot)
+- **Typical steps:** measure center (mean/median), spread (range/variance/SD), shape (skew), then plot (histogram, box plot)
 - **Examples:** mean, median, mode, range, variance, standard deviation, percentile, quartile, histogram, box plot, frequency table
 
 ### Inferential
@@ -42,6 +67,8 @@ Inferential statistics uses a **sample** to draw conclusions about a larger **po
 | --- | --- | --- |
 | Descriptive | This dataset only | Summary numbers and plots |
 | Inferential | Beyond this dataset | Estimates, intervals, p-values, models |
+
+**Quick check:** if you only describe *this* CSV, you are doing descriptive work. If you claim something about *all* customers, *next week’s* traffic, or a true effect size, you have stepped into inference.
 
 ## Types of data
 
@@ -64,10 +91,12 @@ Data
 | --- | --- | --- | --- |
 | Structure | Structured | Tables, spreadsheets, relational databases | Fits rows/columns; easy for classical ML |
 | Structure | Unstructured | Multimedia, text, web pages | Needs parsing, embeddings, or NLP/CV pipelines |
-| Time dimension | Cross-sectional | Collected at a single point in time | No order over time; treat rows as independent (often) |
-| Time dimension | Time series | Collected over a sequence of time intervals | Order and lag matter; leakage risk if shuffled |
+| Time dimension | Cross-sectional | Collected at a single point in time | No order over time; rows are often treated as independent |
+| Time dimension | Time series | Collected over a sequence of time intervals | Order and lag matter; random shuffles can leak future into past |
 | Number of variables | Univariate | Single variable | Simple distributions and summaries |
 | Number of variables | Multivariate | Two or more variables | Relationships, multicollinearity, joint models |
+
+**Semi-structured** data (JSON, logs with mixed fields) sits between structured and unstructured: partly parseable, but not a clean table until you flatten it.
 
 ## Types of variables
 
@@ -109,13 +138,19 @@ One-hot encoding example (color):
 | G | 0 | 1 | 0 |
 | B | 0 | 0 | 1 |
 
-With many categories, one-hot tables get wide. Alternatives include target encoding, hashing, or embeddings — still with care for leakage.
+With many categories, one-hot tables get wide (high cardinality). Alternatives include target encoding, feature hashing, or embeddings — always with care for leakage.
 
 #### Ordinal variables
 
 Ordinal variables have categories with a **natural order** (for example low / medium / high, or rating 1–5), but the gaps between levels are not always equal. “High” ranks above “medium,” yet the step from low→medium may not match medium→high.
 
-**In ML:** Map them to integers (1, 2, 3) when order matters, but do not treat them as continuous unless the spacing assumption is reasonable.
+| Variable | Ordered values (low → high) |
+| --- | --- |
+| Satisfaction | Poor → Fair → Good → Excellent |
+| Education | High school → Bachelor’s → Master’s → PhD |
+| Ticket priority | P3 → P2 → P1 |
+
+**In ML:** Map them to integers (1, 2, 3) when order matters, but do not treat them as continuous unless the spacing assumption is reasonable. Tree-based models often handle ordinal integers well; linear models assume equal spacing if you feed raw integers.
 
 ### Numerical variables
 
@@ -128,14 +163,33 @@ Numerical variables are quantities or measurements. You can compare magnitudes a
 
 **Discrete vs continuous:** counts are discrete (0, 1, 2, …); measurements like height are continuous (any value in a range, given precision).
 
+**Scaling tip:** many models prefer numerical features on similar scales (standardization or min–max). Scaling does not fix a wrong variable type.
+
 ## Population and sample
 
-- A **population** is the full set of observations you care about (all users, all invoices this year, all possible clicks).
-- A **sample** is the subset you actually observe (logged users last week, a random 10k rows).
-- A **parameter** describes the population (true mean μ). A **statistic** describes the sample (sample mean x̄).
+| Term | Meaning | Example |
+| --- | --- | --- |
+| Population | Full set of observations you care about | All users, all invoices this year, all possible clicks |
+| Sample | Subset you actually observe | Logged users last week, a random 10k rows |
+| Parameter | Number that describes the population | True mean μ, true conversion rate |
+| Statistic | Number that describes the sample | Sample mean x̄, sample conversion rate |
+
 - Statistics estimates population properties from samples.
 - A good sample is **representative**; a biased sample systematically misses or overweights parts of the population.
-- In ML, the “population” is often future data from the same process. Train, validation, and test splits are samples meant to stand in for that future.
+- In ML, the “population” is often **future data from the same process**. Train, validation, and test splits are samples meant to stand in for that future.
+- If the process changes (new product, new season, new market), yesterday’s sample may no longer represent tomorrow’s population — that is **distribution shift**.
+
+## Probability (brief)
+
+Probability is the language statistics uses for uncertainty.
+
+- An **event** is an outcome or set of outcomes (for example “user clicks”).
+- Probabilities lie between 0 and 1. Mutually exclusive outcomes that cover everything sum to 1.
+- **Independence:** knowing one event happened does not change the probability of another.
+- **Conditional probability** P(A|B) is the probability of A given that B occurred.
+- **Bayes’ idea (intuition):** update your belief about a hypothesis after seeing new evidence.
+
+You do not need deep probability theory to start ML, but you do need comfort with “chance,” “given that,” and “on average.”
 
 ## Descriptive statistics (measures)
 
@@ -146,8 +200,10 @@ These measures summarize a sample without claiming anything about a larger popul
 | Measure | What it describes | When it helps |
 | --- | --- | --- |
 | Mean | Average value | Symmetric data without extreme outliers |
-| Median | Middle value | Skewed data or outliers |
+| Median | Middle value when sorted | Skewed data or outliers |
 | Mode | Most frequent value | Categories or multimodal distributions |
+
+Example: incomes {30k, 32k, 35k, 40k, 500k} — the mean is pulled up by 500k; the median better reflects a “typical” person.
 
 ### Measures of spread
 
@@ -158,6 +214,8 @@ These measures summarize a sample without claiming anything about a larger popul
 | Range | Max − min | Simple but fragile to extremes |
 | IQR | Q3 − Q1 (middle 50%) | Robust spread for box plots |
 | Percentile / quartile | Position within ordered data | Q1 = 25th, Q2 = median, Q3 = 75th |
+
+Rough reading of SD (for roughly normal data): about 68% of values fall within 1 SD of the mean, and about 95% within 2 SD.
 
 ### Shape
 
@@ -172,13 +230,16 @@ These measures summarize a sample without claiming anything about a larger popul
 
 A **probability distribution** assigns probabilities to outcomes. It is the theoretical shape you assume or estimate for a random variable’s behavior.
 
-- **Discrete:** countable outcomes (Bernoulli, Binomial, Poisson). Use a **PMF** (probability mass function).
-- **Continuous:** outcomes on a continuum (Normal, Uniform, Exponential). Use a **PDF** (probability density function); probability over an interval is the area under the curve.
-- **CDF:** cumulative distribution function — P(X ≤ x).
-- The **Normal (Gaussian)** distribution is central because many averages concentrate around a mean (**central limit theorem**): sample means of i.i.d. data tend toward a normal shape as n grows.
-- Other useful shapes: Bernoulli (binary outcomes), Binomial (count of successes), Poisson (counts of rare events), Exponential (waiting times).
+| Kind | Outcomes | Function | Examples |
+| --- | --- | --- | --- |
+| Discrete | Countable | **PMF** (probability mass) | Bernoulli, Binomial, Poisson |
+| Continuous | On a continuum | **PDF** (density; area = probability) | Normal, Uniform, Exponential |
 
-Knowing the approximate distribution guides which tests, intervals, and loss functions are reasonable.
+- **CDF:** cumulative distribution function — P(X ≤ x).
+- The **Normal (Gaussian)** is central because of the **central limit theorem**: sample means of i.i.d. data tend toward a normal shape as n grows.
+- Other useful shapes: Bernoulli (binary), Binomial (count of successes in n trials), Poisson (counts of rare events), Exponential (waiting times).
+
+Knowing the approximate distribution guides which tests, intervals, and loss functions are reasonable. Many ML losses (squared error, cross-entropy) quietly assume something about the noise or label distribution.
 
 ## Sampling
 
@@ -191,19 +252,24 @@ How you draw the sample shapes every later conclusion. A fancier model cannot fi
 | Cluster sample | Sample whole groups (e.g. schools), then observe everyone inside |
 | Sampling bias | Systematic error from how data was collected (survivors only, volunteers only) |
 | Sampling variability | Different samples give different estimates — expected, not a bug |
-| Sample size | Larger samples usually reduce variance of estimates; they do not remove bias |
+| Sample size | Larger samples usually reduce variance of estimates; they do **not** remove bias |
 
 **ML link:** random splits assume rows are exchangeable. Time series, users with multiple rows, or leakage across splits break that assumption — use time-based or group-based splits instead.
 
+**Bias vs variance of the sample size story:** collecting more of the *same biased process* makes you more confidently wrong. Fix the collection process, not only n.
+
 ## Estimation
 
-- A **point estimate** is a single number for a parameter (e.g. sample mean for population mean).
-- An **estimator** is the rule that produces the estimate (the formula or algorithm).
-- **Bias:** expected difference between estimator and true value. Unbiased ≈ correct on average across samples.
-- **Variance:** how much the estimator jumps across samples.
-- **Bias–variance tradeoff:** lower bias can raise variance and vice versa; both contribute to error.
-- **Consistency:** as sample size grows, the estimate tends to get closer to the true parameter (under conditions).
-- **MSE (mean squared error)** ≈ bias² + variance — a single score for estimator quality.
+| Term | Meaning |
+| --- | --- |
+| Point estimate | Single number for a parameter (e.g. sample mean for population mean) |
+| Estimator | Rule or formula that produces the estimate |
+| Bias | Expected difference between estimator and true value; unbiased ≈ correct on average |
+| Variance (of estimator) | How much the estimate jumps across samples |
+| Consistency | As n grows, the estimate tends toward the true parameter (under conditions) |
+| MSE | ≈ bias² + variance — one score for estimator quality |
+
+**Bias–variance tradeoff:** lowering bias can raise variance and vice versa; both contribute to error. The same tradeoff reappears when choosing model complexity.
 
 ## Confidence intervals
 
@@ -213,6 +279,7 @@ A **confidence interval** is a range that, under repeated sampling, covers the t
 - Narrower intervals mean more precision, often from larger samples or lower variance.
 - A 95% interval does **not** mean “there is a 95% chance the parameter lies in this interval.” In the frequentist sense, the **method** covers the truth about 95% of the time across repeated samples.
 - Overlapping intervals do not always prove “no difference”; use a proper comparison when the decision matters.
+- Report the interval with the estimate (for example “12% ± …” or “12%, 95% CI […]”) so readers see uncertainty, not only a point.
 
 ## Hypothesis testing
 
@@ -229,39 +296,75 @@ Hypothesis testing is a formal way to decide whether data contradict a default c
 | Type II error | Fail to reject H₀ when H₁ is true (false negative) |
 | Power | Probability of correctly rejecting H₀ when H₁ is true |
 
-**How to read a p-value:** small p-value → data are surprising under H₀ → evidence against H₀. It is **not** “probability that H₀ is true,” and not “probability the result replicates.”
+**How to read a p-value:** a small p-value means the data are surprising under H₀, which is evidence against H₀. It is **not** “probability that H₀ is true,” and not “probability the result replicates.”
 
-Common tests: t-tests (means), z-tests (large-sample means/proportions), chi-square (categorical association), ANOVA (several group means) — choice depends on data type and assumptions (independence, normality, equal variance, etc.).
+**Workflow (mental model):** state H₀/H₁ → choose a test and α → compute the test statistic and p-value → reject or fail to reject H₀ → report effect size and uncertainty, not only “significant / not.”
 
-## Correlation and regression (brief)
+| Test | Typical use |
+| --- | --- |
+| t-test | Compare means (small/moderate n, roughly normal) |
+| z-test | Means or proportions with large samples |
+| Chi-square | Association between categorical variables |
+| ANOVA | Compare means across several groups |
 
-- **Correlation** measures how two variables move together (often Pearson for linear association). Range typically −1 to +1. Correlation ≠ slope magnitude in a useful units sense, and ≠ causation.
-- **Regression** models how an outcome changes with predictors (e.g. linear regression: predict y from x). Coefficients, residuals, and R² describe fit — still subject to assumptions and confounding.
+Choice also depends on assumptions: independence, normality, equal variance, and so on. When assumptions fail, prefer a better design or a method that matches the data.
+
+## Correlation and regression
+
+- **Correlation** measures how two variables move together (often Pearson for linear association). Values typically range from −1 to +1.
+  - Near +1: strong positive linear relationship
+  - Near −1: strong negative linear relationship
+  - Near 0: weak linear relationship (non-linear patterns can still exist)
+- Correlation is **not** the slope in useful units, and **not** causation.
+- **Regression** models how an outcome changes with predictors (for example linear regression: predict y from x).
+  - **Coefficients** describe direction and size of associations under the model
+  - **Residuals** are prediction errors
+  - **R²** summarizes how much variance in y the model explains — high R² alone does not prove the model is right
+
+Always plot relationships when you can; a single correlation number can hide clusters, outliers, and curves.
 
 ## Bias and variance (ML view)
 
 In predictive models the same words take on a modeling meaning:
 
-- **Bias:** error from wrong assumptions — the model is too simple (**underfitting**).
-- **Variance:** sensitivity to the particular training sample — the model is too flexible (**overfitting**).
-- **Irreducible error:** noise that no model can remove.
-- Total expected prediction error ≈ bias² + variance + irreducible error.
+| Term | Meaning | Symptom |
+| --- | --- | --- |
+| Bias | Error from wrong assumptions — model too simple | **Underfitting** — high train and test error |
+| Variance | Sensitivity to the training sample — model too flexible | **Overfitting** — low train error, high test error |
+| Irreducible error | Noise no model can remove | Ceiling on achievable performance |
 
-**Practical levers:** more data and regularization often reduce variance; richer features and more flexible models can reduce bias (until they overfit). Validation curves and cross-validation help you see the tradeoff.
+Total expected prediction error ≈ bias² + variance + irreducible error.
+
+**Practical levers**
+
+- Reduce variance: more data, regularization, simpler models, bagging
+- Reduce bias: better features, more flexible models, less underfitting
+- See the tradeoff: validation curves and cross-validation
 
 ## Correlation vs causation
 
-- **Correlation:** two variables move together.
-- **Causation:** changing one variable produces a change in the other.
-- Correlation alone does not prove causation. **Confounders** (a third factor drives both), **reverse causality**, and **selection bias** can create associations without a causal link.
-- Classic pattern: ice cream sales and drowning rates rise together in summer — temperature confounds both.
-- Causal claims need design (randomized experiments, natural experiments) or careful assumptions, not just pairwise correlations or high feature importance.
+| Idea | Meaning |
+| --- | --- |
+| Correlation | Two variables move together |
+| Causation | Changing one variable produces a change in the other |
+
+Correlation alone does not prove causation. Common traps:
+
+- **Confounders** — a third factor drives both (ice cream sales and drowning both rise in summer because of temperature)
+- **Reverse causality** — Y causes X, but you modeled X → Y
+- **Selection bias** — who enters the dataset creates a fake link
+
+Causal claims need design (randomized experiments, natural experiments) or careful assumptions — not just pairwise correlations or high feature importance.
 
 ## Why this matters for ML
 
-- Sampling and splits decide whether metrics will generalize.
-- Bias and variance guide model complexity and regularization.
-- Hypothesis tests and intervals quantify uncertainty in comparisons (for example A/B tests or model bake-offs).
-- Mixing up correlation and causation leads to bad product and science decisions.
-- Variable types decide encoding (one-hot, ordinal maps, scaling) and which models or metrics make sense.
-- Descriptive EDA catches leaks, skew, and bad labels before you train.
+| Statistics idea | ML payoff |
+| --- | --- |
+| Sampling and splits | Metrics that generalize (or fail honestly) |
+| Bias and variance | Sensible model complexity and regularization |
+| Tests and intervals | Honest A/B tests and model comparisons |
+| Correlation vs causation | Better product and science decisions |
+| Variable types | Correct encoding, plots, and metrics |
+| Descriptive EDA | Catch leaks, skew, and bad labels before training |
+
+Learn descriptive tools first, then sampling and uncertainty, then tests and models. That order matches how you will actually work through a dataset.

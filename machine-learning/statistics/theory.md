@@ -181,6 +181,15 @@ Numerical variables are quantities or measurements. You can compare magnitudes a
 - In ML, the “population” is often **future data from the same process**. Train, validation, and test splits are samples meant to stand in for that future.
 - If the process changes (new product, new season, new market), yesterday’s sample may no longer represent tomorrow’s population — that is **distribution shift**.
 
+### Why do we sample?
+
+- **Cost:** Measuring everyone is expensive (surveys, labels, lab tests, compute).
+- **Time:** Collecting the full population can take too long for decisions you need now.
+- **Access:** The full population may be unavailable (future users, private data, infinite or streaming events).
+- **Feasibility:** Some populations are huge or unbounded — a sample is the only practical option.
+- **Quality:** Careful sampling can give accurate estimates with far fewer observations than a messy full census.
+- **ML practice:** Models train on samples (batches, splits) and are judged on held-out samples that stand in for unseen data.
+
 ## Probability (brief)
 
 Probability is the language statistics uses for uncertainty.

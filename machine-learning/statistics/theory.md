@@ -4,9 +4,9 @@ Core statistical ideas used in machine learning. Concepts only — no code.
 
 ## What is statistics?
 
-Statistics is a branch of mathematics that involves collecting, analyzing, interpreting, presenting, and organizing data. It is used to make decisions or predictions based on data.
+Statistics is a branch of mathematics for collecting, analyzing, interpreting, presenting, and organizing data so you can make decisions or predictions from it.
 
-In practice, statistics answers questions like: What patterns exist in this dataset? How confident are we in an estimate? Did a change actually improve the outcome, or is the difference just noise?
+In practice it answers questions like: What patterns exist here? How confident is this estimate? Did a change really help, or is the difference just noise?
 
 ### Key concepts
 
@@ -20,11 +20,11 @@ In practice, statistics answers questions like: What patterns exist in this data
 
 ## Branches of statistics
 
-Statistics is commonly divided into two major branches. Most ML workflows use both: descriptive tools during EDA, and inferential ideas when judging metrics, A/B tests, or model comparisons.
+Statistics is usually split into two major branches. Most ML workflows use both: descriptive tools during EDA, and inferential ideas when judging metrics, A/B tests, or model comparisons.
 
 ### Descriptive
 
-Descriptive statistics summarizes and describes observed data **without** trying to generalize beyond it.
+Descriptive statistics summarize and describe the data you already have, **without** generalizing beyond that sample.
 
 - **Question it answers:** What does the data look like?
 - **Typical steps:** center (mean/median), spread (range/variance/SD), shape (skew), and visuals (histogram, box plot)
@@ -32,10 +32,10 @@ Descriptive statistics summarizes and describes observed data **without** trying
 
 ### Inferential
 
-Inferential statistics uses information from a **sample** to draw conclusions about a larger **population**, while accounting for uncertainty.
+Inferential statistics uses a **sample** to draw conclusions about a larger **population**, while accounting for uncertainty.
 
-- **Goal:** Drawing conclusions from data
-- **Why uncertainty matters:** every sample is one of many possible samples; estimates bounce around
+- **Goal:** Draw conclusions that go beyond the observed data
+- **Why uncertainty matters:** every sample is one of many possible samples, so estimates bounce around
 - **Examples:** estimation, confidence intervals, hypothesis testing, regression and relationships
 
 | Branch | Scope | Typical output |
@@ -45,7 +45,7 @@ Inferential statistics uses information from a **sample** to draw conclusions ab
 
 ## Types of data
 
-Based on its nature, data can be classified in three ways: structure, time dimension, and number of variables. The same dataset can sit in more than one bucket (for example, a structured multivariate time series).
+Data can be classified in three ways: by structure, by time dimension, and by number of variables. The same dataset can fit more than one bucket (for example, a structured multivariate time series).
 
 ```text
 Data
@@ -71,7 +71,7 @@ Data
 
 ## Types of variables
 
-Variable type decides how you encode features, which plots make sense, and which models or metrics are valid.
+The type of variable decides how you encode features, which plots make sense, and which models or metrics are valid.
 
 ```text
 Variables
@@ -85,7 +85,7 @@ Variables
 
 ### Categorical variables
 
-Categorical variables represent groups, classes, or labels rather than numerical quantities. Arithmetic like “average city” is usually meaningless until you encode the categories for a model.
+Categorical variables are groups, classes, or labels — not numerical quantities. Arithmetic like “average city” is usually meaningless until you encode the categories for a model.
 
 #### Nominal variables
 
@@ -99,7 +99,7 @@ Nominal variables have categories with **no ranking or order**.
 
 You cannot say Mumbai is “greater than” Delhi, or that Python ranks above Java.
 
-**In ML:** Predicting a customer’s city category, or encoding product types as model features. A common technique is **one-hot encoding** — each category becomes its own 0/1 column so the model does not invent a false order.
+**In ML:** Use them when predicting a customer’s city, or when encoding product types as features. A common technique is **one-hot encoding** — each category becomes its own 0/1 column so the model does not invent a false order.
 
 One-hot encoding example (color):
 
@@ -113,13 +113,13 @@ With many categories, one-hot tables get wide. Alternatives include target encod
 
 #### Ordinal variables
 
-Ordinal variables have categories with a **natural order** (for example: low / medium / high, or rating 1–5), but the gaps between levels are not necessarily equal. “High” is above “medium,” yet the step from low→medium may not match medium→high.
+Ordinal variables have categories with a **natural order** (for example low / medium / high, or rating 1–5), but the gaps between levels are not always equal. “High” ranks above “medium,” yet the step from low→medium may not match medium→high.
 
-**In ML:** Sometimes map to integers (1, 2, 3) when order matters; avoid treating them as continuous without checking that the spacing assumption is reasonable.
+**In ML:** Map them to integers (1, 2, 3) when order matters, but do not treat them as continuous unless the spacing assumption is reasonable.
 
 ### Numerical variables
 
-Numerical variables represent quantities or measurements. You can compare magnitudes and (with care) compute differences and averages.
+Numerical variables are quantities or measurements. You can compare magnitudes and, with care, compute differences and averages.
 
 | Type | Meaning | Example | Allowed operations |
 | --- | --- | --- | --- |
@@ -135,11 +135,11 @@ Numerical variables represent quantities or measurements. You can compare magnit
 - A **parameter** describes the population (true mean μ). A **statistic** describes the sample (sample mean x̄).
 - Statistics estimates population properties from samples.
 - A good sample is **representative**; a biased sample systematically misses or overweights parts of the population.
-- In ML, the “population” is often future data under the same process. Train/validation/test splits are samples meant to stand in for that future.
+- In ML, the “population” is often future data from the same process. Train, validation, and test splits are samples meant to stand in for that future.
 
 ## Descriptive statistics (measures)
 
-Summarize a sample without making claims about a larger population. Use several measures together — mean alone hides skew and outliers.
+These measures summarize a sample without claiming anything about a larger population. Use several together — the mean alone can hide skew and outliers.
 
 ### Measures of center
 
@@ -170,7 +170,7 @@ Summarize a sample without making claims about a larger population. Use several 
 
 ## Distributions
 
-A **probability distribution** assigns probabilities to outcomes. It is the theoretical shape you assume or estimate for a random variable.
+A **probability distribution** assigns probabilities to outcomes. It is the theoretical shape you assume or estimate for a random variable’s behavior.
 
 - **Discrete:** countable outcomes (Bernoulli, Binomial, Poisson). Use a **PMF** (probability mass function).
 - **Continuous:** outcomes on a continuum (Normal, Uniform, Exponential). Use a **PDF** (probability density function); probability over an interval is the area under the curve.
@@ -182,7 +182,7 @@ Knowing the approximate distribution guides which tests, intervals, and loss fun
 
 ## Sampling
 
-How you draw the sample affects every later conclusion. Bad sampling cannot be fixed by a fancier model.
+How you draw the sample shapes every later conclusion. A fancier model cannot fix bad sampling.
 
 | Idea | Meaning |
 | --- | --- |
@@ -207,16 +207,16 @@ How you draw the sample affects every later conclusion. Bad sampling cannot be f
 
 ## Confidence intervals
 
-A **confidence interval** is a range that, under repeated sampling, covers the true parameter with a stated long-run frequency (e.g. 95%).
+A **confidence interval** is a range that, under repeated sampling, covers the true parameter with a stated long-run frequency (for example 95%).
 
-- Wider intervals = more uncertainty (or higher confidence level, e.g. 99% vs 95%).
-- Narrower intervals = more precision, often from larger samples or lower variance.
-- A 95% interval does **not** mean “95% probability the parameter is in this one interval” in the frequentist sense; it means the **method** covers the truth about 95% of the time across repeated samples.
-- Overlapping intervals do not always settle “no difference”; use a proper comparison when decisions matter.
+- Wider intervals mean more uncertainty (or a higher confidence level, such as 99% vs 95%).
+- Narrower intervals mean more precision, often from larger samples or lower variance.
+- A 95% interval does **not** mean “there is a 95% chance the parameter lies in this interval.” In the frequentist sense, the **method** covers the truth about 95% of the time across repeated samples.
+- Overlapping intervals do not always prove “no difference”; use a proper comparison when the decision matters.
 
 ## Hypothesis testing
 
-Formal way to decide whether data contradict a default claim. It does not prove the alternative is true — it asks whether the null is still plausible.
+Hypothesis testing is a formal way to decide whether data contradict a default claim. It does not prove the alternative is true — it asks whether the null is still plausible.
 
 | Term | Meaning |
 | --- | --- |
@@ -240,14 +240,14 @@ Common tests: t-tests (means), z-tests (large-sample means/proportions), chi-squ
 
 ## Bias and variance (ML view)
 
-In predictive models the same words show up with a modeling twist:
+In predictive models the same words take on a modeling meaning:
 
-- **Bias:** error from wrong assumptions — model too simple (**underfitting**).
-- **Variance:** sensitivity to the particular training sample — model too flexible (**overfitting**).
+- **Bias:** error from wrong assumptions — the model is too simple (**underfitting**).
+- **Variance:** sensitivity to the particular training sample — the model is too flexible (**overfitting**).
 - **Irreducible error:** noise that no model can remove.
 - Total expected prediction error ≈ bias² + variance + irreducible error.
 
-**Practical levers:** more data and regularization often cut variance; richer features and more flexible models can cut bias (until they overfit). Validation curves and cross-validation help see the tradeoff.
+**Practical levers:** more data and regularization often reduce variance; richer features and more flexible models can reduce bias (until they overfit). Validation curves and cross-validation help you see the tradeoff.
 
 ## Correlation vs causation
 
@@ -259,9 +259,9 @@ In predictive models the same words show up with a modeling twist:
 
 ## Why this matters for ML
 
-- Sampling and splits decide whether metrics generalize.
-- Bias/variance guide model complexity and regularization.
-- Hypothesis tests and intervals quantify uncertainty in comparisons (e.g. A/B tests, model bake-offs).
-- Confusing correlation with causation leads to wrong product and science decisions.
+- Sampling and splits decide whether metrics will generalize.
+- Bias and variance guide model complexity and regularization.
+- Hypothesis tests and intervals quantify uncertainty in comparisons (for example A/B tests or model bake-offs).
+- Mixing up correlation and causation leads to bad product and science decisions.
 - Variable types decide encoding (one-hot, ordinal maps, scaling) and which models or metrics make sense.
-- Descriptive EDA finds leaks, skew, and bad labels before you train.
+- Descriptive EDA catches leaks, skew, and bad labels before you train.

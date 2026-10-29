@@ -167,6 +167,8 @@ Numerical variables are quantities or measurements. You can compare magnitudes a
 
 ## Population and sample
 
+![Population vs sample](../../images/population_sample.png)
+
 | Term | Meaning                                                                | Example                                                                        |
 | --- |------------------------------------------------------------------------|--------------------------------------------------------------------------------|
 | Population | Full set of observations you care about or Entire group of individuals | All users, all invoices this year, all possible clicks, populatioin of country |

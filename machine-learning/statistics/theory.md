@@ -167,12 +167,12 @@ Numerical variables are quantities or measurements. You can compare magnitudes a
 
 ## Population and sample
 
-| Term | Meaning | Example |
-| --- | --- | --- |
-| Population | Full set of observations you care about | All users, all invoices this year, all possible clicks |
-| Sample | Subset you actually observe | Logged users last week, a random 10k rows |
-| Parameter | Number that describes the population | True mean μ, true conversion rate |
-| Statistic | Number that describes the sample | Sample mean x̄, sample conversion rate |
+| Term | Meaning                                                                | Example                                                                        |
+| --- |------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| Population | Full set of observations you care about or Entire group of individuals | All users, all invoices this year, all possible clicks, populatioin of country |
+| Sample | Subset you actually observe                                            | Logged users last week, a random 10k rows                                      |
+| Parameter | Number that describes the population                                   | True mean μ, true conversion rate                                              |
+| Statistic | Number that describes the sample                                       | Sample mean x̄, sample conversion rate                                         |
 
 - Statistics estimates population properties from samples.
 - A good sample is **representative**; a biased sample systematically misses or overweights parts of the population.

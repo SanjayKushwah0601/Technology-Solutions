@@ -258,16 +258,112 @@ How you draw the sample shapes every later conclusion. A fancier model cannot fi
 
 | Idea | Meaning |
 | --- | --- |
-| Simple random sample | Every subset of a given size is equally likely |
-| Stratified sample | Sample within known subgroups (e.g. by region) so each group is represented |
-| Cluster sample | Sample whole groups (e.g. schools), then observe everyone inside |
+| Sampling frame | List or process from which you draw units (users, invoices, devices) |
 | Sampling bias | Systematic error from how data was collected (survivors only, volunteers only) |
 | Sampling variability | Different samples give different estimates — expected, not a bug |
 | Sample size | Larger samples usually reduce variance of estimates; they do **not** remove bias |
 
-**ML link:** random splits assume rows are exchangeable. Time series, users with multiple rows, or leakage across splits break that assumption — use time-based or group-based splits instead.
+Sampling methods fall into two families:
 
-**Bias vs variance of the sample size story:** collecting more of the *same biased process* makes you more confidently wrong. Fix the collection process, not only n.
+- **Probability (random) sampling** — every unit has a known chance of selection. Supports unbiased estimation and valid confidence intervals when done correctly.
+- **Non-probability sampling** — selection is not fully random. Faster and cheaper, but harder to generalize; bias is often unknown.
+
+### Sampling techniques
+
+```text
+Sampling techniques
+├── Probability
+│   ├── Random (simple random)
+│   ├── Systematic
+│   ├── Stratified
+│   └── Cluster
+└── Non-probability
+    ├── Quota
+    └── Convenience
+```
+
+#### 1. Random sampling (simple random sample)
+
+Every unit in the population (or frame) has an **equal** chance of being chosen, and every subset of a given size is equally likely.
+
+- **How:** number the frame, then draw with a random number generator (or lottery) without favoring any unit.
+- **Strengths:** conceptually clean; underpins many classical estimators and intervals.
+- **Weaknesses:** needs a complete frame; can miss rare subgroups by chance; can be expensive if units are spread out.
+- **Example:** pick 500 customer IDs at random from all active accounts.
+
+#### 2. Systematic sampling
+
+Pick a starting point at random, then take every **k**-th unit (sampling interval \(k = N / n\)).
+
+- **How:** order the frame, choose a random start between 1 and \(k\), then step by \(k\).
+- **Strengths:** simple to run in the field or on a sorted list; spreads the sample evenly across the frame.
+- **Weaknesses:** if the list has a **periodic pattern** that matches \(k\) (every 10th invoice is a VIP, and \(k = 10\)), the sample is biased.
+- **Example:** from a queue of 10,000 tickets, take every 20th ticket after a random start → \(n = 500\).
+
+#### 3. Stratified sampling
+
+Split the population into **strata** (homogeneous subgroups — region, plan tier, age band), then sample **within** each stratum (often randomly, sometimes proportional to stratum size).
+
+- **How:** define strata that matter for the outcome → sample from each → combine.
+- **Strengths:** guarantees representation of important groups; often lower variance than simple random for the same \(n\).
+- **Weaknesses:** needs good stratum definitions and sizes; bad strata add complexity without benefit.
+- **Example:** survey users by plan (Free / Pro / Enterprise) so Enterprise is not drowned out by Free.
+
+**Proportional vs equal allocation:** proportional keeps stratum shares like the population; equal (or oversampling rare strata) is useful when you care about estimating each group well.
+
+#### 4. Cluster sampling
+
+Split the population into **clusters** (natural groups — schools, cities, stores), randomly select some clusters, then observe **all** (or a subsample) of units inside those clusters.
+
+- **How:** list clusters → sample clusters → measure units inside selected clusters.
+- **Strengths:** cheaper when a full individual frame is hard or travel/cost is high; practical for field studies.
+- **Weaknesses:** clusters are often similar within; effective sample size is smaller than \(n\) suggests (**design effect**). Needs more clusters for precision, not just more people inside few clusters.
+- **Example:** randomly choose 30 cities, then survey households in those cities.
+
+| | Stratified | Cluster |
+| --- | --- | --- |
+| Goal | Represent every subgroup | Reduce cost / logistics |
+| What you sample | Units within every stratum | Whole clusters first |
+| Within-group mix | Strata should be **alike** inside | Clusters are often **mixed** inside, alike across neighbors |
+
+#### 5. Quota sampling
+
+Non-probability: fill **quotas** so the sample matches known population shares (e.g. 50% female, 30% under 30), but units inside each quota are **not** chosen randomly — interviewers pick whoever is available until the quota is full.
+
+- **How:** set targets per cell → recruit until each cell hits its count.
+- **Strengths:** fast control over composition; common in market research and polls when random frames are hard.
+- **Weaknesses:** selection inside quotas can be biased (who is easy to reach, who says yes); hard to attach proper sampling error.
+- **Example:** stop people in a mall until you have 100 men and 100 women aged 25–40.
+
+#### 6. Convenience sampling
+
+Non-probability: take whoever is **easiest** to reach — nearby, online volunteers, classmates, first N rows in a dump.
+
+- **How:** use available data or people with almost no design.
+- **Strengths:** cheapest and fastest; fine for pilots, debugging pipelines, or teaching demos.
+- **Weaknesses:** high risk of bias; results rarely generalize. “Users who filled the optional form” ≠ all users.
+- **Example:** train a prototype on your team’s own click logs, or survey people in one office building.
+
+### Quick comparison
+
+| Technique | Probability? | Best when | Main risk |
+| --- | --- | --- | --- |
+| Random | Yes | Frame is complete; you want clean inference | Misses rare groups by chance; costly at scale |
+| Systematic | Yes (if start is random) | Ordered list; even coverage | Periodicity in the list matches \(k\) |
+| Stratified | Yes | Subgroups matter and sizes are known | Bad or unknown strata |
+| Cluster | Yes | Units are grouped; travel/cost matters | High within-cluster similarity |
+| Quota | No | Need demographic balance quickly | Biased picks inside quotas |
+| Convenience | No | Exploration, prototypes, unavailable frame | Strong selection bias |
+
+### Choosing a method
+
+1. Prefer **probability** methods when you will publish estimates, run A/B inference, or claim population rates.
+2. Use **stratified** when key subgroups must appear in fixed shares.
+3. Use **cluster** when listing every individual is impractical but listing groups is easy.
+4. Use **quota / convenience** only when you accept limited generalizability — and say so.
+5. Fix the **process** before inflating \(n\): more of the same biased sample makes you more confidently wrong.
+
+**ML link:** random train/test splits assume rows are exchangeable. Time series, users with multiple rows, or leakage across splits break that assumption — use time-based or group-based splits instead. Stratified splits (e.g. by class label) mirror stratified sampling so rare classes appear in every fold.
 
 ## Estimation
 

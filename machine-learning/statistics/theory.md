@@ -5,21 +5,22 @@ Core statistical ideas used in machine learning. Concepts only — no code.
 ## Contents
 
 1. [What is statistics?](#what-is-statistics)
-2. [Branches of statistics](#branches-of-statistics)
-3. [Types of data](#types-of-data)
-4. [Types of variables](#types-of-variables)
-5. [Population and sample](#population-and-sample)
-6. [Probability (brief)](#probability-brief)
-7. [Descriptive statistics (measures)](#descriptive-statistics-measures)
-8. [Distributions](#distributions)
-9. [Sampling](#sampling)
-10. [Estimation](#estimation)
-11. [Confidence intervals](#confidence-intervals)
-12. [Hypothesis testing](#hypothesis-testing)
-13. [Correlation and regression](#correlation-and-regression)
-14. [Bias and variance (ML view)](#bias-and-variance-ml-view)
-15. [Correlation vs causation](#correlation-vs-causation)
-16. [Why this matters for ML](#why-this-matters-for-ml)
+2. [Statistical data analysis](#statistical-data-analysis)
+3. [Branches of statistics](#branches-of-statistics)
+4. [Types of data](#types-of-data)
+5. [Types of variables](#types-of-variables)
+6. [Population and sample](#population-and-sample)
+7. [Probability (brief)](#probability-brief)
+8. [Descriptive statistics (measures)](#descriptive-statistics-measures)
+9. [Distributions](#distributions)
+10. [Sampling](#sampling)
+11. [Estimation](#estimation)
+12. [Confidence intervals](#confidence-intervals)
+13. [Hypothesis testing](#hypothesis-testing)
+14. [Correlation and regression](#correlation-and-regression)
+15. [Bias and variance (ML view)](#bias-and-variance-ml-view)
+16. [Correlation vs causation](#correlation-vs-causation)
+17. [Why this matters for ML](#why-this-matters-for-ml)
 
 ## What is statistics?
 
@@ -42,6 +43,27 @@ In practice it answers questions like:
 | Hypothesis testing | Decide whether data contradict a default claim |
 | Correlation and regression | Measure and model relationships |
 | Variance and standard deviation | Quantify spread |
+
+## Statistical data analysis
+
+End-to-end workflow from question to report. Later sections deepen individual steps (sampling, EDA measures, hypothesis tests, and so on).
+
+| Step | What you do | Why it matters |
+| --- | --- | --- |
+| 1. Define the problem or research question | State what you want to know and what “success” looks like | Vague questions produce vague analysis |
+| 2. Data collection | Gather observations from a population or process; choose a [sampling](#sampling) method when you cannot measure everyone | Bad collection cannot be fixed by fancy models |
+| 3. Data cleaning | Fix missing values, duplicates, wrong types, outliers that are errors | Dirty inputs distort every later summary and test |
+| 4. Exploratory data analysis (EDA) | Plot and summarize center, spread, shape, and simple relationships | You learn the data’s story before formal claims |
+| 5. Data transformation | Scale, encode, log-transform, or reshape as needed | Puts variables in a form that summaries and models can use |
+| 6. Hypothesis formulation | Write H₀ / H₁ (or a clear estimand) from the research question | Tests need a claim, not just a spreadsheet |
+| 7. Statistical testing | Run the appropriate test or interval given the design and variable types | Quantifies whether the data contradict the default claim |
+| 8. Interpretation of results | Translate p-values, estimates, and intervals into plain language | Numbers alone are not the answer |
+| 9. Draw conclusions | Answer the original question; note limits and uncertainty | Separates “what we found” from “what we wish we found” |
+| 10. Document / report | Record question, data, methods, results, and decisions | Makes the work reproducible and reviewable |
+
+Steps often loop: EDA can send you back to cleaning; weak results can send you back to collection or a clearer question.
+
+**ML parallel:** problem → data → clean/EDA/transform → train & evaluate → interpret → ship/report. Sampling and splits sit in step 2 (and again when you hold out validation/test data).
 
 ## Branches of statistics
 

@@ -112,8 +112,8 @@ Average of squared distances from the mean. Squaring removes negative signs and 
 
 **Formulas (sample — usual for data you collected):**
 
-- Population: **σ² = Σ (xᵢ − μ)² / N**
-- Sample: **s² = Σ (xᵢ − x̄)² / (n − 1)** ← divide by *n − 1* (Bessel’s correction)
+- Population: **σ² = Σ (xᵢ − μ)² / N** (true mean μ is known; divide by full size *N*)
+- Sample: **s² = Σ (xᵢ − x̄)² / (n − 1)** ← divide by *n − 1* (**Bessel’s correction**)
 
 **Easy steps (sample):**
 
@@ -121,6 +121,27 @@ Average of squared distances from the mean. Squaring removes negative signs and 
 2. For each value, compute (x − x̄), then square it.
 3. Add the squared differences.
 4. Divide by (**n − 1**).
+
+#### Why divide by *n − 1* (not *n*)?
+
+You usually **do not know** the population mean μ. You plug in the **sample mean** x̄ instead. That creates a problem:
+
+1. **x̄ is built from the same sample.** By definition, the deviations (xᵢ − x̄) always sum to **0**. The points are pulled toward their own average, so they look a bit **closer together** than they would around the true μ.
+2. That makes **Σ (xᵢ − x̄)²** a bit **too small** on average as an estimate of Σ (xᵢ − μ)². Dividing that too-small sum by *n* would **underestimate** the true variance (biased low).
+3. Dividing by **n − 1** inflates the result just enough so that, on average across many samples, **s²** aims at the true σ² (**unbiased** estimator under usual i.i.d. assumptions).
+
+**Degrees of freedom (intuition):** once you know *n − 1* of the deviations from x̄, the last deviation is fixed (they must sum to 0). Only **n − 1** pieces of free information remain for spread — so you divide by *n − 1*.
+
+| Divide by | Result |
+| --- | --- |
+| *n* | Smaller number; **underestimates** population variance on average |
+| *n − 1* | Slightly larger; **unbiased** estimate of σ² (sample variance) |
+
+**Tiny check:** one point has no spread — with *n* = 1 you cannot estimate variance (*n − 1* = 0). That matches: you need at least two values.
+
+**When *n* is large:** *n* and *n − 1* are almost the same (e.g. 1000 vs 999). The correction matters most for **small samples**.
+
+**ML note:** many libraries’ `var` default to *n − 1* (sample) or *n* (population / “biased”); check the docs. Training losses that average squared error usually divide by *n* (or batch size) — that is a loss, not an unbiased variance estimator.
 
 | | |
 | --- | --- |
@@ -141,7 +162,10 @@ Average of squared distances from the mean. Squaring removes negative signs and 
 | 9 | 4 | 16 |
 | | | **Sum = 32** |
 
-s² = 32 / (8 − 1) = **≈ 4.57**. Units are “score²” — hard to interpret alone.
+- Divide by *n*: 32 / 8 = **4.00** (population-style / biased sample formula)
+- Divide by *n − 1*: 32 / 7 ≈ **4.57** (sample variance **s²**)
+
+s² ≈ **4.57**. Units are “score²” — hard to interpret alone. The *n − 1* version is slightly larger on purpose.
 
 ### Standard deviation (SD)
 

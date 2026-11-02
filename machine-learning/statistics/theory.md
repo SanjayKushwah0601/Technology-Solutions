@@ -11,7 +11,7 @@ Core statistical ideas used in machine learning. Concepts only — no code.
 5. [Types of variables](#types-of-variables)
 6. [Population and sample](#population-and-sample)
 7. [Probability (brief)](#probability-brief)
-8. [Descriptive statistics (measures)](#descriptive-statistics-measures)
+8. [Descriptive statistics (measures)](#descriptive-statistics-measures) → [`descriptive-statistics.md`](./descriptive-statistics.md)
 9. [Distributions](#distributions)
 10. [Sampling](#sampling)
 11. [Estimation](#estimation)
@@ -71,7 +71,7 @@ Statistics is usually split into two major branches. Most ML workflows use both:
 
 ### Descriptive
 
-Descriptive statistics summarize and describe the data you already have, **without** generalizing beyond that sample.
+Descriptive statistics summarize and describe the data you already have, **without** generalizing beyond that sample. More detail: [`descriptive-statistics.md`](./descriptive-statistics.md).
 
 - **Question it answers:** What does the data look like?
 - **Typical steps:** measure center (mean/median), spread (range/variance/SD), shape (skew), then plot (histogram, box plot)
@@ -227,6 +227,8 @@ You do not need deep probability theory to start ML, but you do need comfort wit
 ## Descriptive statistics (measures)
 
 These measures summarize a sample without claiming anything about a larger population. Use several together — the mean alone can hide skew and outliers.
+
+Dedicated notes: [`descriptive-statistics.md`](./descriptive-statistics.md).
 
 ### Measures of center
 

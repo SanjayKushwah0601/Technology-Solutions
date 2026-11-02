@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6b9b6aa-6a6e-4826-960f-3ae6e8ce6a31" name="Changes" comment="Statistics" />
+    <list default="true" id="a6b9b6aa-6a6e-4826-960f-3ae6e8ce6a31" name="Changes" comment="Statistics">
+      <change beforePath="$PROJECT_DIR$/machine-learning/statistics/theory.md" beforeDir="false" afterPath="$PROJECT_DIR$/machine-learning/statistics/theory.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

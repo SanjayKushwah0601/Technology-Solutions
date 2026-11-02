@@ -7,6 +7,7 @@ Sampling, hypothesis testing, bias/variance, and other foundations used across m
 | Topic | File |
 | --- | --- |
 | [Theory](./theory.md) | [`theory.md`](./theory.md) |
+| [Descriptive statistics](./descriptive-statistics.md) | [`descriptive-statistics.md`](./descriptive-statistics.md) |
 
 ## Topics
 
@@ -19,7 +20,7 @@ Sampling, hypothesis testing, bias/variance, and other foundations used across m
 | Population and sample | See [Theory](./theory.md#population-and-sample) |
 | Probability | See [Theory](./theory.md#probability-brief) |
 | Sampling | See [Theory](./theory.md#sampling) |
-| Descriptive statistics (mean, variance, distribution shape) | See [Theory](./theory.md#descriptive-statistics-measures) |
+| Descriptive statistics (mean, variance, distribution shape) | [`descriptive-statistics.md`](./descriptive-statistics.md) · [Theory](./theory.md#descriptive-statistics-measures) |
 | Distributions | See [Theory](./theory.md#distributions) |
 | Estimation | See [Theory](./theory.md#estimation) |
 | Hypothesis testing | See [Theory](./theory.md#hypothesis-testing) |

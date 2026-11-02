@@ -254,6 +254,8 @@ When to use / avoid each, with examples: [`descriptive-statistics.md` → Measur
 
 Rough reading of SD (for roughly normal data): about 68% of values fall within 1 SD of the mean, and about 95% within 2 SD.
 
+Formulas, when to use / avoid, and hand-calculation examples: [`descriptive-statistics.md` → Measures of dispersion](./descriptive-statistics.md#measures-of-dispersion-spread).
+
 ### Shape
 
 | Measure | What it describes |

@@ -240,6 +240,8 @@ Dedicated notes: [`descriptive-statistics.md`](./descriptive-statistics.md).
 
 Example: incomes {30k, 32k, 35k, 40k, 500k} — the mean is pulled up by 500k; the median better reflects a “typical” person.
 
+When to use / avoid each, with examples: [`descriptive-statistics.md` → Measures of central tendency](./descriptive-statistics.md#measures-of-central-tendency).
+
 ### Measures of spread
 
 | Measure | What it describes | Notes |

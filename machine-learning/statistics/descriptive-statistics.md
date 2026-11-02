@@ -15,15 +15,66 @@ Back to [Theory](./theory.md) · overview in [Branches](./theory.md#branches-of-
 
 Use several measures together. The mean alone can hide skew and outliers.
 
-## Measures of center
+## Measures of central tendency
 
-| Measure | What it describes | When it helps |
+Three common ways to describe a “typical” value: **mean**, **median**, and **mode**. Pick by data type and shape — not habit.
+
+| Measure | Idea | Best with |
 | --- | --- | --- |
-| Mean | Average value | Symmetric data without extreme outliers |
-| Median | Middle value when sorted | Skewed data or outliers |
-| Mode | Most frequent value | Categories or multimodal distributions |
+| Mean | Arithmetic average | Symmetric numeric data, few outliers |
+| Median | Middle value when sorted | Skewed numeric data or outliers |
+| Mode | Most frequent value | Categories; also multimodal numeric data |
 
-Example: incomes `{30k, 32k, 35k, 40k, 500k}` — the mean is pulled up by 500k; the median better reflects a “typical” person.
+### Mean
+
+Sum of values divided by count: **x̄ = (x₁ + x₂ + … + xₙ) / n**.
+
+| | |
+| --- | --- |
+| **Use when** | Data are roughly symmetric; you care about the total/average (costs, scores, sensor readings); every point should influence the summary |
+| **Avoid when** | Strong skew or extreme outliers; open-ended scales (“10+”); or the variable is categorical (no sensible average of “red” and “blue”) |
+
+**Example — good fit:** exam scores `{72, 75, 78, 80, 85}` → mean ≈ **78**. Values cluster; mean matches a typical student.
+
+**Example — poor fit:** incomes `{30k, 32k, 35k, 40k, 500k}` → mean = **127.4k**. One CEO pulls the average far above what most people earn. Prefer the median here.
+
+### Median
+
+Sort the data. For odd *n*, take the middle value; for even *n*, average the two middle values.
+
+| | |
+| --- | --- |
+| **Use when** | Distribution is skewed; outliers exist; you want a “typical person” that half the sample sits below and half above (income, house prices, latency with rare spikes) |
+| **Avoid when** | You need a summary that uses every value equally (e.g. total cost / n); data are unordered categories; or *n* is tiny and you still need to report an average for planning totals |
+
+**Example — good fit:** same incomes `{30k, 32k, 35k, 40k, 500k}` → median = **35k**. Matches a typical earner; the 500k barely moves it.
+
+**Example — poor fit:** you must budget total payroll for 5 people earning those incomes. Median 35k × 5 understates the real sum; the **mean** (or the total itself) is what finance needs.
+
+### Mode
+
+The value that appears most often. A set can be unimodal, bimodal, multimodal, or have no unique mode.
+
+| | |
+| --- | --- |
+| **Use when** | Data are **categorical** (most common city, plan tier, error code); or numeric data have clear peaks you care about (most common shoe size, most common transaction amount) |
+| **Avoid when** | Every value is unique (continuous measurements with high precision — often no useful mode); or you need a balance point / total-based average |
+
+**Example — good fit:** support tickets tagged `{login, login, billing, login, shipping}` → mode = **login**. That is the issue to staff first.
+
+**Example — poor fit:** heights in cm `{170.1, 171.4, 168.9, 172.0, 169.5}` — each value appears once, so mode adds nothing. Use mean or median instead.
+
+### Quick chooser
+
+| Situation | Prefer |
+| --- | --- |
+| Symmetric numeric, few outliers | Mean |
+| Skewed numeric or heavy outliers | Median |
+| Categories / “most common” | Mode |
+| Mean and median far apart | Investigate skew/outliers; report median (and maybe both) |
+| Need total ÷ n (budget, average cost) | Mean |
+
+**Same data, three answers:** `{2, 2, 3, 5, 100}` → mode = **2**, median = **3**, mean = **22.4**. All are valid; they answer different questions.
 
 ## Measures of spread
 

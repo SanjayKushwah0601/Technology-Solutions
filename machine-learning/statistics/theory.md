@@ -495,7 +495,7 @@ Causal claims need design (randomized experiments, natural experiments) or caref
 
 | Statistics idea | ML payoff |
 | --- | --- |
-| Sampling and splits | Metrics that generalize (or fail honestly) |
+| Sampling and splits | Metrics that generalise (or fail honestly) |
 | Bias and variance | Sensible model complexity and regularization |
 | Tests and intervals | Honest A/B tests and model comparisons |
 | Correlation vs causation | Better product and science decisions |

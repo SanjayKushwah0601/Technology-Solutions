@@ -8,6 +8,7 @@ Back to [Theory](./theory.md) · overview in [Branches](./theory.md#branches-of-
 
 | Goal | Example question |
 | --- | --- |
+| Frequency | How often does each value (or bin) appear? |
 | Center | What is a typical value? |
 | Spread | How much do values vary? |
 | Shape | Is the distribution skewed or heavy-tailed? |
@@ -278,6 +279,103 @@ If you land between two ranks, many tools average the two neighbors. For learnin
 
 **Same idea as center:** mean ↔ SD; median ↔ IQR. Match the pair to the shape of the data.
 
+## Frequency, relative frequency, cumulative frequency
+
+Before means and SDs, count how often each value (or class/bin) appears. That count table is the base for bar charts, histograms, and many EDA checks.
+
+Running example — ticket priorities:  
+`{P1, P2, P1, P3, P2, P2, P1, P2, P3, P2}` → *n* = 10.
+
+### Frequency
+
+**Frequency (f)** = how many times a value or class appears.
+
+**Easy steps:** list distinct values (or bins) → count occurrences of each → check that the counts sum to *n*.
+
+| Priority | Frequency (f) |
+| --- | --- |
+| P1 | 3 |
+| P2 | 5 |
+| P3 | 2 |
+| **Total** | **10** |
+
+| | |
+| --- | --- |
+| **Use when** | Building a frequency table; finding the **mode**; plotting bar charts or histograms; spotting rare vs common categories |
+| **Avoid when** | Comparing groups of **different sizes** with raw counts alone (a count of 50 in 1000 is not the same story as 50 in 60) — use relative frequency |
+
+**Numeric data:** for continuous values, group into **bins** (class intervals), then count how many fall in each bin. Bin width changes the picture — too wide hides shape; too narrow looks noisy.
+
+### Relative frequency
+
+**Relative frequency** = frequency as a share of the sample.
+
+**Formula:** Relative frequency = **f / n** (as a proportion), or **(f / n) × 100** (as a %).
+
+Proportions should sum to **1** (or 100%).
+
+| Priority | f | Relative frequency | % |
+| --- | --- | --- | --- |
+| P1 | 3 | 3/10 = 0.30 | 30% |
+| P2 | 5 | 5/10 = 0.50 | 50% |
+| P3 | 2 | 2/10 = 0.20 | 20% |
+| **Total** | **10** | **1.00** | **100%** |
+
+| | |
+| --- | --- |
+| **Use when** | Comparing samples of different size; reporting “share of tickets”; estimating probabilities from data (“about 50% are P2”) |
+| **Avoid when** | *n* is tiny (30% of 3 observations is fragile); you need absolute volume for capacity planning (then keep **f** too — “50% of 2 tickets” is still 1 ticket) |
+
+### Cumulative frequency
+
+**Cumulative frequency (CF)** = running total of frequencies up through the current value/class (data must be in a meaningful order — sorted numeric bins or ordered categories).
+
+**Formula:** CFₖ = f₁ + f₂ + … + fₖ (sum of frequencies from the first class through class *k*).
+
+**Cumulative relative frequency** = CF / *n* (or running sum of relative frequencies). Useful for “what % are at or below this?” — same idea as percentiles.
+
+**Easy steps:**
+
+1. Order the values or bins (low → high, or the natural order).
+2. Write frequencies.
+3. Each row’s CF = previous CF + this row’s *f*.
+4. Last CF must equal *n*.
+
+Ordered by priority P1 → P3:
+
+| Priority | f | Cumulative frequency (CF) | Cumulative relative freq. |
+| --- | --- | --- | --- |
+| P1 | 3 | 3 | 0.30 |
+| P2 | 5 | 3 + 5 = **8** | 0.80 |
+| P3 | 2 | 8 + 2 = **10** | 1.00 |
+
+Reading: **8** tickets are P1 or P2; **80%** are at P2 or higher priority (if P1 is most urgent, interpret order carefully — always state the sort direction).
+
+**Numeric example:** scores `{2, 4, 4, 4, 5, 5, 7, 9}` with bins:
+
+| Score bin | f | CF | Cum. rel. |
+| --- | --- | --- | --- |
+| 1–3 | 1 | 1 | 0.125 |
+| 4–6 | 5 | 6 | 0.750 |
+| 7–9 | 2 | 8 | 1.000 |
+
+So **75%** of scores are ≤ 6 (end of the 4–6 bin).
+
+| | |
+| --- | --- |
+| **Use when** | “How many / what % are at or below X?”; ogives (cumulative plots); hand-finding medians/percentiles from grouped data |
+| **Avoid when** | Categories have **no order** (city names) — cumulative totals are then meaningless; forget to sort before cumulating |
+
+### Quick chooser
+
+| Question | Use |
+| --- | --- |
+| How many times did X occur? | Frequency (*f*) |
+| What share is X? / compare unequal sample sizes | Relative frequency |
+| How many (or what %) are ≤ this value/class? | Cumulative frequency (or cum. relative) |
+
+**ML link:** class counts and class % are frequency and relative frequency. Imbalance shows up here before you train. Cumulative relative frequency on a sorted score is how you reason about recall/coverage thresholds.
+
 ## Shape
 
 | Measure | What it describes |
@@ -291,10 +389,11 @@ If you land between two ranks, many tools average the two neighbors. For learnin
 
 | Plot | Use |
 | --- | --- |
-| Histogram | Shape, modality, rough spread |
+| Histogram | Shape from binned **frequencies** (or relative frequencies) |
 | Box plot | Median, IQR, possible outliers |
-| Frequency table | Counts for categories |
-| Bar chart | Compare category frequencies |
+| Frequency table | Counts (*f*), often with relative and cumulative columns |
+| Bar chart | Compare category frequencies or relative frequencies |
+| Ogive | Plot of cumulative frequency (or cum. relative) vs ordered classes |
 
 ## Descriptive vs inferential (quick)
 

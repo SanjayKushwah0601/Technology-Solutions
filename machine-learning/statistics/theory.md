@@ -230,6 +230,16 @@ These measures summarize a sample without claiming anything about a larger popul
 
 Dedicated notes: [`descriptive-statistics.md`](./descriptive-statistics.md).
 
+### Frequency tables (brief)
+
+| Idea | Meaning |
+| --- | --- |
+| Frequency (*f*) | Count of a value or bin |
+| Relative frequency | *f* / *n* (share or %) |
+| Cumulative frequency | Running total of *f* through ordered classes |
+
+Detail and examples: [`descriptive-statistics.md` → Frequency](./descriptive-statistics.md#frequency-relative-frequency-cumulative-frequency).
+
 ### Measures of center
 
 | Measure | What it describes | When it helps |

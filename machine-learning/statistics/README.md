@@ -21,6 +21,7 @@ Sampling, hypothesis testing, bias/variance, and other foundations used across m
 | Probability | See [Theory](./theory.md#probability-brief) |
 | Sampling | See [Theory](./theory.md#sampling) |
 | Descriptive statistics (mean, variance, distribution shape) | [`descriptive-statistics.md`](./descriptive-statistics.md) · [Theory](./theory.md#descriptive-statistics-measures) |
+| Frequency / relative / cumulative frequency | [`descriptive-statistics.md` → Frequency](./descriptive-statistics.md#frequency-relative-frequency-cumulative-frequency) |
 | Distributions | See [Theory](./theory.md#distributions) |
 | Estimation | See [Theory](./theory.md#estimation) |
 | Hypothesis testing | See [Theory](./theory.md#hypothesis-testing) |

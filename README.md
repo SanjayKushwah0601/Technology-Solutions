@@ -1,6 +1,6 @@
 # Technology Solutions
 
-Technology solutions for problems in coding, system design, and software architecture.
+Technology solutions for problems in coding, system design and software architecture.
 
 ## Contents
 

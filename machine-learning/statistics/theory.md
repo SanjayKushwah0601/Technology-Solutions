@@ -12,15 +12,16 @@ Core statistical ideas used in machine learning. Concepts only — no code.
 6. [Population and sample](#population-and-sample)
 7. [Probability (brief)](#probability-brief)
 8. [Descriptive statistics (measures)](#descriptive-statistics-measures) → [`descriptive-statistics.md`](./descriptive-statistics.md)
-9. [Distributions](#distributions)
-10. [Sampling](#sampling)
-11. [Estimation](#estimation)
-12. [Confidence intervals](#confidence-intervals)
-13. [Hypothesis testing](#hypothesis-testing)
-14. [Correlation and regression](#correlation-and-regression)
-15. [Bias and variance (ML view)](#bias-and-variance-ml-view)
-16. [Correlation vs causation](#correlation-vs-causation)
-17. [Why this matters for ML](#why-this-matters-for-ml)
+9. [Statistical plots](#statistical-plots) → [`statistical-plots.md`](./statistical-plots.md)
+10. [Distributions](#distributions)
+11. [Sampling](#sampling)
+12. [Estimation](#estimation)
+13. [Confidence intervals](#confidence-intervals)
+14. [Hypothesis testing](#hypothesis-testing)
+15. [Correlation and regression](#correlation-and-regression)
+16. [Bias and variance (ML view)](#bias-and-variance-ml-view)
+17. [Correlation vs causation](#correlation-vs-causation)
+18. [Why this matters for ML](#why-this-matters-for-ml)
 
 ## What is statistics?
 
@@ -275,6 +276,18 @@ Formulas, when to use / avoid, and hand-calculation examples: [`descriptive-stat
 
 **Rule of thumb:** if mean and median differ a lot, check skew and outliers before trusting the mean.
 
+## Statistical plots
+
+Visual EDA: histograms (shape, skew, modality), box plots (five-number summary + outliers), and scatter plots (relationships).
+
+Dedicated notes: [`statistical-plots.md`](./statistical-plots.md).
+
+| Plot | Shows | Typical use |
+| --- | --- | --- |
+| Histogram | Distribution of one numeric variable | Skew, peaks, rough spread |
+| Box plot | Median, IQR, whiskers, outliers | Compare groups; outlier scan |
+| Scatter plot | Pair of numeric variables | Correlation shape, clusters, nonlinearity |
+
 ## Distributions
 
 A **probability distribution** assigns probabilities to outcomes. It is the theoretical shape you assume or estimate for a random variable’s behavior.
@@ -466,7 +479,7 @@ Choice also depends on assumptions: independence, normality, equal variance, and
   - **Residuals** are prediction errors
   - **R²** summarizes how much variance in y the model explains — high R² alone does not prove the model is right
 
-Always plot relationships when you can; a single correlation number can hide clusters, outliers, and curves.
+Always plot relationships when you can; a single correlation number can hide clusters, outliers, and curves. Scatter pattern types: [`statistical-plots.md` → Scatter plots](./statistical-plots.md#scatter-plots-and-their-types).
 
 ## Bias and variance (ML view)
 

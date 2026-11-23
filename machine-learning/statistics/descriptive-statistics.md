@@ -394,6 +394,9 @@ So **75%** of scores are ≤ 6 (end of the 4–6 bin).
 | Frequency table | Counts (*f*), often with relative and cumulative columns |
 | Bar chart | Compare category frequencies or relative frequencies |
 | Ogive | Plot of cumulative frequency (or cum. relative) vs ordered classes |
+| Scatter plot | Relationship between two numeric variables |
+
+Detail on histograms (skew / modality), box plots, and scatter types: [`statistical-plots.md`](./statistical-plots.md).
 
 ## Descriptive vs inferential (quick)
 

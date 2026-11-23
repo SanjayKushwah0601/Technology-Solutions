@@ -8,6 +8,7 @@ Sampling, hypothesis testing, bias/variance, and other foundations used across m
 | --- | --- |
 | [Theory](./theory.md) | [`theory.md`](./theory.md) |
 | [Descriptive statistics](./descriptive-statistics.md) | [`descriptive-statistics.md`](./descriptive-statistics.md) |
+| [Statistical plots](./statistical-plots.md) | [`statistical-plots.md`](./statistical-plots.md) |
 
 ## Topics
 
@@ -22,6 +23,7 @@ Sampling, hypothesis testing, bias/variance, and other foundations used across m
 | Sampling | See [Theory](./theory.md#sampling) |
 | Descriptive statistics (mean, variance, distribution shape) | [`descriptive-statistics.md`](./descriptive-statistics.md) · [Theory](./theory.md#descriptive-statistics-measures) |
 | Frequency / relative / cumulative frequency | [`descriptive-statistics.md` → Frequency](./descriptive-statistics.md#frequency-relative-frequency-cumulative-frequency) |
+| Histograms, box plots, scatter plots | [`statistical-plots.md`](./statistical-plots.md) · [Theory](./theory.md#statistical-plots) |
 | Distributions | See [Theory](./theory.md#distributions) |
 | Estimation | See [Theory](./theory.md#estimation) |
 | Hypothesis testing | See [Theory](./theory.md#hypothesis-testing) |
